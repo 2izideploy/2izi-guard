@@ -40,7 +40,7 @@ Read `SECURITY.md` before deployment. Do not publish exploitable vulnerabilities
 Official 0.4.10 distribution artifact:
 
 ```text
-b5738e5289f3e7086b39b064a10661ab96330dde8bde7a2e935c28ce195f91e5  2izi-guard-0.4.10-release.zip
+3e36109cf0b035ac39272be55c82cc855dd7d7df4065ba7b5e527d1aad710944  2izi-guard-0.4.10-release.zip
 ```
 
 ## License
