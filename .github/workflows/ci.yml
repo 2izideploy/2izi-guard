@@ -1,0 +1,39 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:8.4
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: izi_guard_test
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping -h 127.0.0.1 -proot"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=10
+    env:
+      IZI_GUARD_TEST_DSN: mysql:host=127.0.0.1;port=3306;dbname=izi_guard_test;charset=utf8mb4
+      IZI_GUARD_TEST_USER: root
+      IZI_GUARD_TEST_PASSWORD: root
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install PHP extensions
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y php-cli php-mysql
+          php -v
+          node --version
+      - name: Run security and regression suite
+        run: bash tests/run-all.sh
